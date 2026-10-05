@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para una persona muy especial | Una Experiencia Interactiva</title>
+
+    <!-- Meta tags SEO -->
+    <meta name="description"
+        content="Una experiencia digital interactiva y emocional diseñada especialmente para Marumi. Descubre una historia de momentos y detalles únicos.">
+    <meta name="author" content="Darwin">
+
+    <!-- Open Graph / Facebook / WhatsApp Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Algo especial para ti - Marumi">
+    <meta property="og:description" content="Una experiencia interactiva y emocional diseñada con cariño.">
+    <meta property="og:image" content="assets/fotos/foto1.jpg">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
+
+    <!-- Fuentes Google Fonts: Playfair Display (Títulos) y Poppins (Cuerpo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Librería de Animación CSS - AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Estilos Personalizados -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Contenedor de Pétalos de Flores Flotantes (Elegante y Sutil) -->
+    <div id="floating-petals-container" aria-hidden="true"></div>
+
+    <!-- Lienzo de Partículas (tsParticles) de Fondo -->
+    <div id="tsparticles"></div>
+
+    <!-- Cursor Personalizado Estilo Estela (Mouse Trail) -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-glow"></div>
+
+    <!-- Botón de Música Flotante -->
+    <button id="music-btn" class="music-btn" aria-label="Reproducir música de fondo">
+        <span class="music-icon" id="music-icon">🎵</span>
+        <span class="music-text" id="music-text">Reproducir música</span>
+        <div class="music-visualizer" id="music-visualizer">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </button>
+    <audio id="bg-music" loop></audio>
+
+    <!-- PANTALLA INICIAL (INTRO) -->
+    <section id="intro-screen" class="fullscreen-section active">
+        <div class="intro-content">
+            <h1 class="intro-title" id="intro-main-title">Hay algo que preparé especialmente para ti.</h1>
+            <button id="btn-comenzar" class="btn-premium">Comenzar</button>
+        </div>
+    </section>
+
+    <!-- PANTALLA DE CONFIRMACIÓN -->
+    <section id="confirm-screen" class="fullscreen-section">
+        <div class="glass-card confirm-card">
+            <h2 class="confirm-title" id="confirm-title">¿Estás segura de que quieres entrar?</h2>
+            <div class="confirm-buttons">
+                <button id="btn-si-1" class="btn-premium btn-confirm">Sí ❤️</button>
+                <button id="btn-si-2" class="btn-premium btn-confirm btn-gold">Sí, completamente segura</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PANTALLA REVELACIÓN DEL NOMBRE -->
+    <section id="name-screen" class="fullscreen-section">
+        <div class="name-container">
+            <h2 class="revealed-name"><span id="typed-name"></span></h2>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL (Viaje de Historia) -->
+    <main id="main-content" class="hidden-content">
+
+        <!-- SECCIÓN: FRASES DE SCROLL -->
+        <section id="phrases-section" class="scroll-journey">
+            <div class="scroll-instruction" id="scroll-prompt">
+                <p id="scroll-instruction-text">Desliza hacia abajo para comenzar el viaje</p>
+                <div class="scroll-arrow">↓</div>
+            </div>
+
+            <!-- Contenedor dinámico de frases cargadas desde config.js -->
+            <div id="dynamic-phrases-container"></div>
+        </section>
+
+        <!-- SECCIÓN: GALERÍA MASONRY -->
+        <section id="gallery-section" class="gallery-wrapper">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle" id="gallery-subtitle">Nuestra Galería</span>
+                <h2 class="section-title" id="gallery-title">NUESTROS MOMENNTOS</h2>
+            </div>
+
+            <!-- Contenedor Masonry Dinámico -->
+            <div class="masonry-grid" id="masonry-grid-container"></div>
+        </section>
+
+        <!-- SECCIÓN: LÍNEA DEL TIEMPO (TIMELINE) -->
+        <section id="timeline-section" class="timeline-wrapper">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle" id="timeline-subtitle">Lo que vivimos</span>
+                <h2 class="section-title" id="timeline-title">Nuestros Momentos de lo nuestro</h2>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <!-- Hitos dinámicos desde config.js -->
+                <div id="dynamic-timeline-container" class="timeline-items-holder"></div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: EL SOBRE Y LA CARTA -->
+        <section id="letter-section" class="letter-wrapper">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle" id="letter-subtitle">Un Mensajito Especial</span>
+                <h2 class="section-title" id="letter-title">Una Carta Para Ti</h2>
+            </div>
+
+            <!-- Contenedor del Sobre 3D Interactable -->
+            <div class="envelope-area" data-aos="zoom-in" data-aos-duration="1000">
+                <div class="envelope-wrapper" id="envelope-wrapper">
+                    <!-- Flap (Solapa superior) -->
+                    <div class="envelope-flap" id="envelope-flap"></div>
+                    <!-- Front (Frente del sobre) -->
+                    <div class="envelope-front"></div>
+                    <!-- Pocket (Bolsillo interior) -->
+                    <div class="envelope-pocket"></div>
+                    <!-- Sello de Lacre Decorativo -->
+                    <div class="envelope-seal" id="envelope-seal">
+                        <span class="seal-icon">💌</span>
+                    </div>
+                    <!-- Letter (Carta deslizable) -->
+                    <div class="letter-card" id="letter-card">
+                        <div class="letter-paper">
+                            <div class="letter-content" id="letter-content">
+                                <!-- El texto se escribirá dinámicamente aquí -->
+                            </div>
+                            <!-- Botón para reiniciar escritura si se desea -->
+                            <button id="btn-rewind" class="btn-rewind" style="display: none;"
+                                title="Volver a leer">🔄</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="envelope-instruction">
+                <p id="envelope-tip">Dale clic en el sobre para abrirlo espero te guste</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: DEDICATORIA FINAL -->
+        <section id="dedication-section" class="dedication-wrapper" data-aos="fade-up">
+            <div class="glass-card dedication-card">
+                <span class="section-subtitle" id="dedication-subtitle">Con todo mi cariño</span>
+                <p id="dynamic-dedication" class="dedication-text">Siempre tendrás un lugar especial e imborrable en mi
+                    corazón, Marumi.</p>
+            </div>
+        </section>
+
+        <!-- FOOTER ELEGANTE -->
+        <footer class="footer-premium">
+            <p class="footer-text" id="footer-text-content">Diseñado con mucho cariño para ti :c &copy; 2026</p>
+            <p class="footer-credits">Creado por <span class="author-highlight" id="footer-author">Darwin</span></p>
+        </footer>
+
+    </main>
+
+    <!-- LIGHTBOX MODAL PARA IMÁGENES -->
+    <div id="lightbox-modal" class="lightbox-modal">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar imagen">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Imagen ampliada">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         CARGA DE LIBRERÍAS EXTERNAS (CDNs)
+         ========================================== -->
+
+    <!-- 1. tsParticles (Fondo de partículas interactivo) -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+
+    <!-- 2. GSAP (GreenSock Animation Platform) para transiciones y ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- 3. Typed.js (Efecto máquina de escribir) -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <!-- 4. AOS (Animate On Scroll) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- ==========================================
+         CARGA DE SCRIPTS DE LOGICA PROPIA
+         ========================================== -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
